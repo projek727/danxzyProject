@@ -173,17 +173,26 @@ html, body {
   padding: 10px 24px 8px;
 }
 
-/* ===== BANNER ===== */
-.banner {
-  width: 100%;
+/* ===== BANNER (UNLIMITED, SWIPEABLE) ===== */
+.banner-track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
   padding: 12px 20px 4px;
+  -webkit-overflow-scrolling: touch;
 }
 
-.banner img {
-  width: 100%;
-  display: block;
+.banner-track::-webkit-scrollbar { display: none; }
+
+.banner-img {
+  width: 88%;
+  max-width: 380px;
+  flex: 0 0 auto;
   border-radius: 14px;
   object-fit: cover;
+  scroll-snap-align: center;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
 }
 
 /* ===== BLOCKS ===== */
@@ -225,6 +234,38 @@ html, body {
 
 .install-btn-bottom { margin: 10px 20px 24px; }
 
+.whatsapp-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 20px 20px;
+  text-decoration: none;
+  padding: 16px 12px;
+}
+
+.wa-label {
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+}
+
+.wa-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.35);
+}
+
+.wa-arrow {
+  opacity: 0.8;
+}
+
 .footer { text-align: center; color: var(--text-dim); font-size: 10.5px; padding: 0 24px 26px; }
 
 </style>
@@ -240,7 +281,7 @@ html, body {
       <div class="app-heading">
         <h1 class="app-name">Blue Games</h1>
         <a class="developer" href="#">danxzy</a>
-        <span class="tag">Berisi iklan &nbsp;·&nbsp; Pembelian dalam aplikasi</span>
+        <span class="tag" data-i18n="tag">Berisi iklan &nbsp;·&nbsp; Pembelian dalam aplikasi</span>
       </div>
     </header>
 
@@ -250,7 +291,7 @@ html, body {
         <div class="stat-value">4.3<span class="star">★</span></div>
         <div class="stat-sub">
           <div class="mini-stars">★★★★<span class="half">★</span></div>
-          <div class="stat-label">12,4K ulasan</div>
+          <div class="stat-label" data-i18n="reviews_count">12,4K ulasan</div>
         </div>
       </div>
 
@@ -258,14 +299,14 @@ html, body {
 
       <div class="stat">
         <div class="stat-value">20 RB+</div>
-        <div class="stat-label">Download</div>
+        <div class="stat-label" data-i18n="downloads">Download</div>
       </div>
 
       <div class="divider"></div>
 
       <div class="stat">
         <div class="stat-value age">3+</div>
-        <div class="stat-label">Rating usia 3+</div>
+        <div class="stat-label" data-i18n="age_rating">Rating usia 3+</div>
       </div>
     </div>
 
@@ -275,22 +316,20 @@ html, body {
       <span>Install</span>
       <span class="size-tag">36 MB</span>
     </a>
-    <p class="note">File .apk — izinkan "install dari sumber tidak dikenal" di pengaturan HP kamu.</p>
+    <p class="note" data-i18n="note">File .apk — izinkan "install dari sumber tidak dikenal" di pengaturan HP kamu.</p>
 
-    <!-- ===== BANNER PROMO ===== -->
-    <!-- Upload gambar banner kamu ke GitHub dengan nama banner.jpg -->
-    <div class="banner">
-      <img src="banner.jpg" alt="Blue Games banner" />
-    </div>
+    <!-- ===== BANNER PROMO (UNLIMITED) ===== -->
+    <!-- Upload gambar berurutan: banner1.jpg, banner2.jpg, banner3.jpg, dst. Jumlahnya bebas, tidak terbatas. -->
+    <div class="banner-track" id="banner-track"></div>
 
     <!-- ===== RATING BREAKDOWN ===== -->
     <section class="block">
-      <h2 class="block-title">Rating dan ulasan</h2>
+      <h2 class="block-title" data-i18n="rating_title">Rating dan ulasan</h2>
       <div class="rating-panel">
         <div class="rating-big">
           <div class="rating-number">4.3</div>
           <div class="mini-stars big">★★★★<span class="half">★</span></div>
-          <div class="rating-count">12,4K ulasan</div>
+          <div class="rating-count" data-i18n="reviews_count">12,4K ulasan</div>
         </div>
         <div class="rating-bars">
           <div class="bar-row"><span>5</span><div class="bar"><i style="width:78%"></i></div></div>
@@ -304,34 +343,148 @@ html, body {
 
     <!-- ===== ABOUT ===== -->
     <section class="block">
-      <h2 class="block-title">Tentang aplikasi ini</h2>
-      <p class="about-text">
+      <h2 class="block-title" data-i18n="about_title">Tentang aplikasi ini</h2>
+      <p class="about-text" data-i18n="about_text">
         Game Space ini memperlancar sistem HP dan meningkatkan performa secara maksimal saat HP panas.
         Game Space juga bisa menurunkan suhu HP yang sangat panas dan meningkatkan jaringan secara maksimal.
       </p>
 
       <div class="info-grid">
         <div class="info-item">
-          <div class="info-label">Versi</div>
+          <div class="info-label" data-i18n="version">Versi</div>
           <div class="info-value">3.2</div>
         </div>
         <div class="info-item">
-          <div class="info-label">Update terakhir</div>
+          <div class="info-label" data-i18n="updated">Update terakhir</div>
           <div class="info-value">19 Agu 2026</div>
         </div>
         <div class="info-item">
-          <div class="info-label">Developer</div>
+          <div class="info-label" data-i18n="developer">Developer</div>
           <div class="info-value">danxzy</div>
         </div>
       </div>
     </section>
 
-    <footer class="footer">
-      <span>Bukan bagian dari Google Play. Diselenggarakan mandiri oleh danxzy.</span>
-    </footer>
+    <!-- ===== WHATSAPP ===== -->
+    <a class="whatsapp-block" href="https://whatsapp.com/channel/0029VbCSASBIN9imDHtiql2C" target="_blank" rel="noopener">
+      <span class="wa-label" data-i18n="wa_label">JOIN SALURAN WHATSAPP</span>
+      <span class="wa-circle">
+        <svg viewBox="0 0 32 32" width="26" height="26" fill="#fff"><path d="M16.001 2.667c-7.363 0-13.334 5.97-13.334 13.333 0 2.353.615 4.66 1.782 6.686L2.667 29.333l6.83-1.791a13.28 13.28 0 0 0 6.503 1.657h.006c7.363 0 13.334-5.97 13.334-13.333 0-3.562-1.388-6.912-3.907-9.431a13.246 13.246 0 0 0-9.432-3.768zm0 24.4h-.005a11.06 11.06 0 0 1-5.638-1.544l-.405-.24-4.053 1.063 1.082-3.951-.264-.406a11.05 11.05 0 0 1-1.694-5.889c0-6.11 4.972-11.081 11.083-11.081 2.96 0 5.742 1.153 7.834 3.247a11.007 11.007 0 0 1 3.246 7.839c-.001 6.111-4.973 11.083-11.084 11.083zm6.079-8.303c-.333-.167-1.973-.973-2.279-1.084-.306-.111-.529-.166-.751.167-.222.333-.86 1.083-1.055 1.306-.194.222-.389.25-.722.083-.333-.167-1.406-.518-2.678-1.652-.99-.883-1.658-1.973-1.852-2.306-.194-.333-.021-.513.146-.679.15-.149.333-.389.5-.583.166-.194.222-.333.333-.556.111-.222.056-.417-.028-.583-.083-.167-.75-1.807-1.028-2.474-.271-.65-.546-.562-.75-.573l-.639-.011c-.222 0-.583.083-.889.417-.305.333-1.166 1.14-1.166 2.78 0 1.64 1.194 3.225 1.361 3.447.167.222 2.352 3.593 5.698 5.037.796.343 1.417.549 1.901.703.799.254 1.526.218 2.101.132.641-.096 1.973-.807 2.251-1.586.278-.779.278-1.446.194-1.586-.083-.14-.305-.222-.639-.389z"/></svg>
+      </span>
+      <svg class="wa-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#25d366" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </a>
+
+    <footer class="footer" data-i18n="footer">Bukan bagian dari Google Play. Diselenggarakan mandiri oleh danxzy.</footer>
 
   </div>
 
+<script>
+/* ================= I18N ================= */
+const translations = {
+  tag: {
+    id: 'Berisi iklan &nbsp;·&nbsp; Pembelian dalam aplikasi',
+    en: 'Contains ads &nbsp;·&nbsp; In-app purchases'
+  },
+  reviews_count: { id: '12,4K ulasan', en: '12.4K reviews' },
+  downloads: { id: 'Download', en: 'Downloads' },
+  age_rating: { id: 'Rating usia 3+', en: 'Rated for 3+' },
+  note: {
+    id: 'File .apk — izinkan "install dari sumber tidak dikenal" di pengaturan HP kamu.',
+    en: 'APK file — allow "install from unknown sources" in your phone settings.'
+  },
+  rating_title: { id: 'Rating dan ulasan', en: 'Ratings and reviews' },
+  about_title: { id: 'Tentang aplikasi ini', en: 'About this app' },
+  about_text: {
+    id: 'Game Space ini memperlancar sistem HP dan meningkatkan performa secara maksimal saat HP panas. Game Space juga bisa menurunkan suhu HP yang sangat panas dan meningkatkan jaringan secara maksimal.',
+    en: 'Game Space smooths out your phone system and boosts performance to the max when your phone overheats. Game Space can also cool down an overheating phone and maximize your network signal.'
+  },
+  version: { id: 'Versi', en: 'Version' },
+  updated: { id: 'Update terakhir', en: 'Last updated' },
+  developer: { id: 'Developer', en: 'Developer' },
+  wa_label: { id: 'JOIN SALURAN WHATSAPP', en: 'JOIN WHATSAPP CHANNEL' },
+  footer: {
+    id: 'Bukan bagian dari Google Play. Diselenggarakan mandiri oleh danxzy.',
+    en: 'Not affiliated with Google Play. Independently run by danxzy.'
+  }
+};
+
+function applyLanguage(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.getAttribute('data-i18n');
+    const entry = translations[key];
+    if (entry && entry[lang]) el.innerHTML = entry[lang];
+  });
+}
+
+async function detectLanguage() {
+  // Coba deteksi negara lewat IP dulu, fallback ke bahasa HP kalau gagal/timeout
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2500);
+    const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+    clearTimeout(timeout);
+    const data = await res.json();
+    if (data && data.country_code) {
+      return data.country_code === 'ID' ? 'id' : 'en';
+    }
+  } catch (e) {
+    // lanjut ke fallback
+  }
+  const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+  return browserLang.startsWith('id') ? 'id' : 'en';
+}
+
+detectLanguage().then(applyLanguage);
+
+/* ================= BANNER UNLIMITED ================= */
+function checkImageExists(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
+}
+
+async function loadBanners() {
+  const track = document.getElementById('banner-track');
+  let i = 1;
+  let found = 0;
+  const MAX_CHECK = 300; // batas aman biar ga infinite loop, bukan batas jumlah banner beneran
+  while (i <= MAX_CHECK) {
+    const url = `banner${i}.jpg`;
+    const exists = await checkImageExists(url);
+    if (!exists) break;
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = `Blue Games banner ${i}`;
+    img.className = 'banner-img';
+    track.appendChild(img);
+    found++;
+    i++;
+  }
+  if (found === 0) {
+    track.style.display = 'none';
+  }
+}
+
+loadBanners();
+
+/* ================= AUTO REDIRECT DARI IN-APP BROWSER (TikTok, dll) ================= */
+(function redirectFromInAppBrowser() {
+  const ua = navigator.userAgent || '';
+  const isInApp = /TikTok|BytedanceWebview|musical_ly|Instagram|FBAN|FBAV|Line\//i.test(ua);
+  const isAndroid = /Android/i.test(ua);
+
+  if (isInApp && isAndroid) {
+    const currentUrl = window.location.href.replace(/^https?:\/\//, '');
+    const intentUrl = `intent://${currentUrl}#Intent;scheme=https;package=com.android.chrome;end`;
+    window.location.href = intentUrl;
+  }
+})();
+</script>
+
 </body>
-  </html>
-            
+          </html>
+  
